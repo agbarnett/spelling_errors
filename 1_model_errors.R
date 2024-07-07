@@ -1,17 +1,18 @@
 # 1_model_errors.R
 # use a Bayesian model of spelling errors
 # July 2024
+library(dplyr)
 library(splines)
-library(nimble) # use Bayes to model smooth estimates
+library(nimble) # use Bayes to model smooth rates
 library(janitor)
 library(stringr)
+library(ggplot2) 
+source('99_functions.R') # for plot_convergence
 
 # data from 0_search_pubmed.R
 load('data/0_pubmed.RData')
 
-
-
-# make spline basis
+# make spline basis from years
 df = 3
 basis = ns(years, df = df, intercept=TRUE)
 
@@ -28,9 +29,11 @@ code <- nimbleCode({
 
 # loop through errors
 model_results = NULL
-for (this_error in 1:16){
+error_numbers = unique(freqs$enum)
+n_errors = length(error_numbers)
+for (this_error in error_numbers){
   # set up data
-  for_bayes = filter(freqs, enum == this_error) %>%
+  for_bayes = filter(freqs, enum == this_error) %>% # select data for this error
     arrange(year)
   N = nrow(for_bayes)
   constants = list(df = df, 
@@ -63,6 +66,9 @@ for (this_error in 1:16){
                      summary = TRUE, 
                      setSeed = seed,
                      WAIC = FALSE)
+  
+  # check convergence and export plots
+  plot_convergence(insamples = mcmc$samples, inerror = this_error)
   
   # extract the trend
   to_plot = data.frame(mcmc$summary$all.chains) %>%

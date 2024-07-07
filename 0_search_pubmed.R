@@ -92,6 +92,8 @@ total = group_by(freqs, year, denom) %>%
        upper = binom.exact(n = denom, x = n)$upper,
        lower = lower*10000,
        upper = upper*10000)
+# add to results
+freqs = bind_rows(freqs, total)
 
 # add back missing labels
 labels = filter(data, !is.na(error)) %>%

@@ -18,6 +18,10 @@ for (k in 1:length(errors)){
   f = data.frame(enum = k, errors = paste(errors[[k]], collapse=', '))
   error_table = bind_rows(error_table, f)
 }
+# add total
+f = data.frame(enum = 99, errors = 'Total')
+error_table = bind_rows(error_table, f)
+#
 for_table = left_join(error_table, table, by='enum') %>%
   arrange(desc(mean_rate)) 
 
