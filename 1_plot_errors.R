@@ -26,7 +26,7 @@ nplot = ggplot(data = freqs, aes(x = year, y = n))+
         axis.text.x = element_text(size=8, angle=45, hjust=1))+
   facet_wrap(~error, scales='free_y')+
   xlab('Year')+
-  ylab('Number of papers')
+  ylab('Number of abstracts')
 nplot
 ggsave(nplot, file = 'figures/numbers.jpg', dpi = 500, units='in', width=7, height=6)
 
@@ -41,7 +41,7 @@ rplot = ggplot(data = freqs, aes(x = year, y = p, ymin=lower, ymax=upper))+
         axis.text.x = element_text(size=8, angle=45, hjust=1))+
   facet_wrap(~error, scales='free_y')+
   xlab('Year')+
-  ylab('Rate per 10,000 papers')
+  ylab('Spelling errors per 10,000 abstracts')
 rplot
 ggsave(rplot, file = 'figures/rates.jpg', dpi = 500, units='in', width=7, height=7)
 

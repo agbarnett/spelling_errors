@@ -11,18 +11,16 @@ errors = list(
 #  c("statistically significant"), # not a spelling error, but still interesting
 #  c("statistically insignificant"), # not a spelling error, but still interesting
   c('randomised controlled trail','randomised controlled trails','randomized controlled trail','randomized controlled trails'),
-  c('pubic health'), # could be some non errors here
-  c('public heath'),
+  c('pubic health','public heath'), # could be some non errors here, checked random and found only errors
   c('screeing'),
-  c('clinicans'),
+  c('clinican','clinicans'),
   c('reserach','reserachers'), # much more common if affiliation is included; this search is not restricted to the title and abstract
   c('prevalance','prevalances'),
-  c('casual inference','casual effect','casual association'), 
+  c('casual inference','casual inferences','casual effect','casual effects','casual association','casual associations'), 
   c('principle component analysis','principle component analyses'),
-  c('odd ratio'),
-  c('odds ration','odds rations'),
+  c('odd ratio','odd ratios','odds ration','odds rations'),
   c('risk ration','risk rations'),
-  c('confident interval','confident intervals',"confidence inteval","confidance interval"),
+  c('confident interval','confident intervals',"confidence inteval","confidence intevals","confidance interval","confidance intervals"),
   c('statically significant'),
   c("fischer's exact","fischers exact","fischer exact"),
   c('kaplan meir','kapan meier'), # do not need hyphen as this is included
@@ -107,3 +105,7 @@ freqs = select(freqs, -error) %>%
 # save
 search_date = as.Date(Sys.Date())
 save(freqs, search_date, errors, years, file = 'data/0_pubmed.RData')
+
+# randomly check some errors
+filter(data, enum==2) %>% sample_n(1)
+filter(data, enum==13) %>% sample_n(1)

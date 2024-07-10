@@ -34,12 +34,12 @@ tplot = ggplot(data = trends, aes(x = year, y = mean, ymin=x95_ci_low, ymax=x95_
   theme_bw()+
   theme(panel.grid.minor = element_blank(),
         legend.position = 'none',
-        strip.text = element_text(size=8),
+        strip.text = element_text(size=9),
         axis.text.x = element_text(size=8, angle=45, hjust=1))+
   facet_wrap(~facet, scales='free_y', labeller = label_value)+
   coord_cartesian(ylim=c(0,NA))+ # remove negative on y-axis
   xlab('Year')+
-  ylab('Spelling errors per 10,000 papers')
+  ylab('Spelling errors per 10,000 abstracts')
 tplot
 ggsave(tplot, file = 'figures/smooth_trend_in_rates.jpg', dpi = 500, units='in', width=8, height=7)
 
