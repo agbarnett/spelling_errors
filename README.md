@@ -2,6 +2,9 @@
 
 Tracking spelling errors over time in [PubMed](https://pubmed.ncbi.nlm.nih.gov/).
 
+The main results are the trend plots which are in the folder `figures`.
+
+The folder `tables` includes a table with details on the 15 spelling errors.
 
 #### R version and packages
 

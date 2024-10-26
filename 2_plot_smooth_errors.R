@@ -1,6 +1,7 @@
 # 2_plot_smooth_errors.R
 # plot smooth trends in errors
 # July 2024
+library(stringr)
 library(ggplot2)
 library(dplyr)
 # colour blind friendly
@@ -23,6 +24,7 @@ labels = select(trends, error) %>% unique() %>% pull()
 labels = case_when(
   labels == 'randomised controlled trail' ~ 'randomised controlled\ntrail',
   labels == 'principle component analysis' ~ 'principle component\nanalysis',
+  labels == 'Total' ~ 'Total across all errors',
   TRUE ~ as.character(labels)
 )
 trends = mutate(trends, facet = factor(facet, levels=1:length(labels), labels=labels))

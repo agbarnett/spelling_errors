@@ -48,15 +48,12 @@ for (enum in 1:length(errors)){
   }
 }
 
-# remove duplicates using Pubmed ID (abstracts with multiple matches to spelling errors)
+# remove duplicates using Pubmed ID (abstracts with multiple matches to spelling errors); e.g., so if two versions of randomised controlled trial mentioned in same abstract then just take one
 data = unique(data)
-# then get frequencies, including over plurals (and other similar misspellings)
-freqs = group_by(data, year, error, enum) %>%
-  tally() %>%
-  ungroup()
 
 # add zero years/errors
 full = expand.grid(year = years, enum = 1:length(errors))
+freqs = group_by(data, year, enum) %>% tally()
 freqs = full_join(freqs, full, by=c('year','enum')) %>%
   mutate(n = ifelse(is.na(n), 0, n)) 
 

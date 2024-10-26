@@ -13,6 +13,7 @@ freqs = mutate(freqs,
               error = case_when(
                 error == 'principle component analysis' ~ 'principle component\nanalysis',
                 error == 'randomised controlled trail' ~ 'randomised controlled\ntrail',
+                error == 'Total' ~ 'Total across\nall errors',
                 TRUE ~ as.character(error)
               ))
 
